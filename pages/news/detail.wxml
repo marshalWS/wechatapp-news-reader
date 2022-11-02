@@ -1,4 +1,14 @@
-<import src="../common/template/article.wxml"/>
+<import src="../common/template/article.wxml" />
+
+
+
+
+<!-- <map longitude="118.795009" latitude="31.944315"></map> -->
+<!--https://www.toutiao.com/w/1747461079635980/?log_from=3256a9a8c4364_1666532776891-->
+
+
+<!-- <web-view src="">
+    </web-view> -->
 
 <view class="page__detail">
     <view class="detail">
@@ -16,18 +26,33 @@
             </view>
         </view>
 
+        <!-- <navigator open-tab="switchTab" open-type="navigate" url="../newswebview/newswebview?url='{{article.link}}'"> -->
+        <view class="abstract" bindtap="toMore" data-link="{{article.link}}">
+            <text >{{article.abstract }}</text>
+            <text class="more"> 全文...</text>
+        </view>
+        <!-- <web-view src="{{article.link}}">{{article.abstract }}
+                </web-view> -->
         <view class="article__content">
-            <mp-html content="{{ article.content }}" tag-style="{{ tagStyle }}" />
+            <view><map id="myMap" longitude="118.795009" latitude="31.944315" scale="16" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
+            </view>
+
+            <!-- <view wx:else="{{showWebView}}">
+                <web-view src="https://www.toutiao.com/w/1747461079635980/?log_from=3256a9a8c4364_1666532776891">
+                </web-view>
+            </view> -->
+            <!-- <mp-html content="{{ article.content }}" tag-style="{{ tagStyle }}" /> -->
         </view>
     </view>
 </view>
 
 <!-- 相关新闻 -->
+<!-- 
 <view class="detail__relation">
     <view class="relation__title">相关新闻</view>
     <block wx:for="{{ relations }}" wx:key="id">
         <template is="{{ 'newsStyle' + item.style }}" data="{{ ...item }}" />
     </block>
-</view>
+</view> -->
 
-<include src="../common/template/footer.wxml"/>
+<include src="../common/template/footer.wxml" />

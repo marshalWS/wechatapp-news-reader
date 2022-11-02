@@ -1,7 +1,19 @@
-<view class="container">
-  <view class="founds">
-    <view bindtap="keepDevelop" class="found" wx:for="{{ icons }}" wx:key="*this">
-      <image animation="{{ animationData }}" class="found__icon" src="/image/demo/icon-demo{{ item + 1 }}.png"></image>
+<import src="../common/template/article.wxml" />
+<view class='filterContent'>
+    <view class='filterView'>
+        <view class='location'>
+            <image src='../../res/images/ic_city_location.png' mode='aspectFit' class='icon' bindtap='getLocalLocation' />
+            <text class='caption' bindtap='getLocalLocation'>当前城市：</text>
+            <text class='city' bindtap='selectCity'>{{location}} </text>
+            <image src='../../res/images/ic_right_arrow.png' mode='widthFix' class='icon' bindtap='selectCity' />
+        </view>
     </view>
-  </view>
+</view>
+
+<!-- 首页新闻列表  -->
+<view style="color: white;font-size: 20rpx; margin-bottom: 50rpx;"> 64664</view>
+<view class="articles" wx:if="news">
+    <block wx:for="{{ news.newsList }}">
+        <template is="{{ 'newsStyle' + item.style }}" data="{{ ...item }}" />
+    </block>
 </view>

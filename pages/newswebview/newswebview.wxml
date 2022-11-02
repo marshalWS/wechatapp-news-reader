@@ -1,0 +1,6 @@
+<!--pages/news/newswebview/newswebview.wxml-->
+<!-- <text>pages/news/newswebview/newswebview.wxml</text> -->
+
+
+<!-- <web-view src="{{url}}"></web-view> -->
+<image  style="width: 100%;" mode="widthFix" src="{{link}}"></image>

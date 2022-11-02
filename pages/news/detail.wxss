@@ -1,25 +1,50 @@
-.page__detail{
-    display: block;
-    width: 720rpx;
-    margin:0 auto;
-    background-color: #fff;
-    margin-top:20rpx;
+map {
+    height: 650rpx;
+    width: 50%;
 }
 
-.detail__title{
-    font-size:36rpx;
+quanwen {
+    font-size: 20rpx;
+    color: blue;
+}
+
+navigator {
+    margin: 10rpx 50rpx 50rpx 50rpx;
+}
+
+.abstract {
+    margin: 50rpx;
+    font-size: 30rpx;
+    font-weight: 330;
+}
+
+.more {
+    color: blue;
+    text-decoration: underline;
+}
+
+.page__detail {
+    display: block;
+    width: 720rpx;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-top: 20rpx;
+}
+
+.detail__title {
+    font-size: 36rpx;
     line-height: 50rpx;
     font-weight: 400;
-    word-break:break-word;
+    word-break: break-word;
     width: 100%;
     text-align: left;
 }
 
-.article__desc{
+.article__desc {
     margin: 30rpx 0;
 }
 
-.article__content{
+.article__content {
     font-size: 28rpx;
     color: #333;
     line-height: 42rpx;
@@ -27,17 +52,18 @@
     text-indent: 2em;
 }
 
-.detail__relation{
+.detail__relation {
     margin-top: 60rpx;
     padding-bottom: 30rpx;
 }
-.relation__title{
+
+.relation__title {
     border-left: 6rpx solid #d81e06;
     padding-left: 30rpx;
     margin-bottom: 30rpx;
 }
 
-.article__desc{
+.article__desc {
     padding-bottom: 30rpx;
     border-bottom: 1rpx solid #ccc;
 }
@@ -47,7 +73,11 @@
     overflow: hidden;
 }
 
-.article__content ._p, .article__content ._h1, .article__content ._h2, .article__content ._h3, .article__content ._h4 {
+.article__content ._p,
+.article__content ._h1,
+.article__content ._h2,
+.article__content ._h3,
+.article__content ._h4 {
     line-height: 1.8;
     margin-bottom: 14px;
 }

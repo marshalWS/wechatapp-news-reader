@@ -1,24 +1,23 @@
 <!-- index.wxml -->
 
-<import src="../common/template/article.wxml"/>
+<import src="../common/template/article.wxml" />
+<!-- 头部导航 -->
+<!-- <view class="{{scrollTop > 1 ? 'header_scroll' : 'header'}}">  -->
+<view class="header">
+    <scroll-view class="sv__container" scroll-x="true" catchtouchmove="true">
+        <block wx:for="{{ categoryTabs }}" wx:key="id">
+            <view class="sv__item {{ currentTab === item.id ? 'active':'' }}" bindtap="changeCategory" data-id="{{ item.id }}">
+                {{ item.name }}
+            </view>
+        </block>
+    </scroll-view>
+    <image bindtap="manageTabs" class="sv-manager" src="/image/icon-manage.png"></image>
+</view>
 
+<view class="blank">blank</view>
 <view>
-    <!-- 头部导航 -->
-    <view class="header">
-        <scroll-view class="sv__container" scroll-x="true">
-            <block wx:for="{{ categoryTabs }}" wx:key="id">
-                <view 
-                    class="sv__item {{ currentTab === item.id ? 'active':'' }}" 
-                    bindtap="changeCategory" 
-                    data-id="{{ item.id }}">
-                    {{ item.name }}
-                </view>
-            </block>
-        </scroll-view>
-        <image bindtap="manageTabs" class="sv-manager" src="/image/icon-manage.png"></image>
-    </view>
     <!-- 滚动页面 -->
-    <swiper class="swiper__container" wx:if="{{ bannerList.length }}" indicator-dots="{{ false }}" autoplay="true" interval="3000">
+    <!-- <swiper class="swiper__container" wx:if="{{ bannerList.length }}" indicator-dots="{{ false }}" autoplay="true" interval="3000">
         <swiper-item wx:for="{{ bannerList }}" wx:key="id">
             <view class="swiper__content">
                 <image src="{{ item.image }}" class="swiper__item" mode="aspectFill"  />
@@ -28,13 +27,14 @@
                 </view>
             </view>
         </swiper-item>
-    </swiper>
+    </swiper> -->
+    <!-- 首页新闻列表  -->
     <view class="articles" wx:if="news && news.categoryId">
         <block wx:for="{{ news.newsList }}">
             <template is="{{ 'newsStyle' + item.style }}" data="{{ ...item }}" />
         </block>
     </view>
 
-    <include src="../common/template/footer.wxml"/>
+    <include src="../common/template/footer.wxml" />
 
 </view>

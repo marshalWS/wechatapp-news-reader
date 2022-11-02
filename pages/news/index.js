@@ -1,141 +1,224 @@
 //index.js
 
-const { getCategroyList, getHomeBannerList, getNewsByCategory } = require("../../utils/api")
+const {
+    getCategroyList,
+    getHomeBannerList,
+    getNewsByCategory
+} = require("../../utils/api")
 
+var getLocalNewsList = require("../../mock/api-news-list")
 //获取应用实例
 Page({
     data: {
+        scrollTop: Number,
         bannerList: [],
         categoryTabs: [],
         currentTab: 0,
         newsCache: {},
         news: {}
     },
-    onLoad () {
+
+    onPageScroll: function (e) { //监听页面滚动
+        this.setData({
+            scrollTop: e.scrollTop
+        })
+
+    },
+
+    onLoad() {
+        // 打开调试
+        wx.setEnableDebug({
+            enableDebug: true
+        })
         this.doLoadHomeBanners()
     },
-    onShow (){
+    onShow() {
         this.doLoadCategorys()
     },
 
-    async doLoadCategorys () {
+    async doLoadCategorys() {
         const categorys = await getCategroyList()
         const categoryTabs = categorys.filter(c => c.selected)
-        this.setData({ categoryTabs, currentTab: categoryTabs[0].id })
+        this.setData({
+            categoryTabs,
+            currentTab: categoryTabs[0].id
+        })
         this.doLoadNews()
     },
-    async doLoadHomeBanners () {
+    async doLoadHomeBanners() {
         const bannerList = await getHomeBannerList()
-        this.setData({ bannerList })
+        this.setData({
+            bannerList
+        })
     },
-    async doLoadNews () {
-        const { currentTab, newsCache } = this.data
+    async doLoadNews() {
+
+        String.prototype.encode = function () {
+            var bytes = [];
+            for (var i = 0; i < this.length; i++) {
+                bytes.push(this.charCodeAt(i));
+            }
+            return bytes.join(',');
+        }
+
+        const {
+            currentTab,
+            newsCache
+        } = this.data
         if (!newsCache[currentTab]) {
-            newsCache[currentTab] = { categoryId: currentTab, page: 1, isLoading: false, newsList: [] }
+            newsCache[currentTab] = {
+                categoryId: currentTab,
+                page: 1,
+                isLoading: false,
+                newsList: []
+            }
         }
         const news = newsCache[currentTab]
         if (news.isLoading) {
             return
         }
         news.isLoading = true
-        this.setData({ news })
+        this.setData({
+            news
+        })
+
         try {
-            const newslist = await getNewsByCategory(news.categoryId, news.page)
-            if (newslist.length) {
+            // const newslist = await getNewsByCategory(news.categoryId, news.page)
+            let newslist = getLocalNewsList.NewsList
+            if (currentTab != 1) {
+                newslist = newslist.filter(item => {
+                    return item.id == currentTab
+                })
+            }
+
+            // console.log("------- news>,currentTab", newslist, currentTab) 
+            if (newslist.length && news.page == 1) {
                 news.page += 1
+                for (var i = 0; i < newslist.length; i++) {
+                    if (!newslist[i].hasOwnProperty('trans')) {
+                        newslist[i].link = (newslist[i].link.encode())
+                        newslist[i].trans = true
+                        newslist[i].locate = "上海"
+                    }
+                }
                 news.newsList.push(...newslist)
             }
             news.isLoading = false
         } catch (err) {
             news.isLoading = false
         }
-        this.setData({ news })
+        this.setData({
+            news
+        })
     },
 
     // 页面相关事件处理函数--监听用户下拉动作，下拉刷新
-    onPullDownRefresh(){
+    onPullDownRefresh() {
         this.newsCache = {}
         this.doLoadNews()
     },
     // 到达底部，继续将在
-    onReachBottom(){
+    onReachBottom() {
         this.doLoadNews()
     },
     // 切换当前选择的分类
-    changeCategory (event){
-        const { newsCache } = this.data
+    changeCategory(event) {
+        console.log("+++++++ event", event)
+        const {
+            newsCache
+        } = this.data
         var tabId = event.target.dataset.id
+
         if (newsCache[tabId]) {
-            this.setData({ news: newsCache[tabId], currentTab: tabId })
+            this.setData({
+                news: newsCache[tabId],
+                currentTab: tabId
+            })
         } else {
+            this.setData({
+                currentTab: tabId
+            })
             this.doLoadNews()
-            this.setData({ currentTab: tabId })
         }
     },
-    getNewsList(chid = 0,page = 0){
-        
-        if(!cache[chid]){
+    getNewsList(chid = 0, page = 0) {
+
+        if (!cache[chid]) {
             // 新内容
-            cache[chid] = {slides:[],news:[],page:0,time:Date.now()}
+            cache[chid] = {
+                slides: [],
+                news: [],
+                page: 0,
+                time: Date.now()
+            }
         }
         var infos = cache[chid]
         // 获取下一页数据
-        if(page){
+        if (page) {
             // 加载中。无法触发
-            if(this._isLoading){
+            if (this._isLoading) {
                 return false;
             }
             infos.page += 1
-        }else{
+        } else {
             // 直接从缓存中取出
-            if(infos.news.length){
+            if (infos.news.length) {
                 this.setData({
-                    bannerList:infos.slides,
-                    articles:infos.news
+                    bannerList: infos.slides,
+                    articles: infos.news
                 })
                 return false
             }
         }
 
-        
+
 
         this._isLoading = true
-        
-        $vm.utils.post('v2/news/list.html',{chid:chid,page:infos.page}).then(res => {
+
+        $vm.utils.post('v2/news/list.html', {
+            chid: chid,
+            page: infos.page
+        }).then(res => {
             this._isLoading = false
 
-            var {code,newsList,newsBanner} = res
-            if(code === 0){
+            var {
+                code,
+                newsList,
+                newsBanner
+            } = res
+            if (code === 0) {
                 // 新闻管理
                 // style 3下面三张图，1,下面一张大图，2.普通模式，0.无图模式
-                if(newsList && newsList.length){
+                if (newsList && newsList.length) {
                     // infos.news = []
                     var datas = parseNews(newsList)
                     infos.news.push(...datas)
                 }
                 // 轮播管理
-                if(newsBanner && newsBanner.length){
+                if (newsBanner && newsBanner.length) {
                     // infos.slides = []
                     var banners = newsBanner.map(news => {
                         return {
-                            id:news.news_id,
-                            title:news.news_title,
-                            image:news.news_icon.pop(),
-                            style:news.news_style
+                            id: news.news_id,
+                            title: news.news_title,
+                            image: news.news_icon.pop(),
+                            style: news.news_style
                         }
                     })
                     infos.slides.push(...banners)
                 }
                 this.setData({
-                    bannerList:infos.slides,
-                    articles:infos.news
+                    bannerList: infos.slides,
+                    articles: infos.news
                 })
             }
-            
-        }).catch(err =>console.log(err))
+
+        }).catch(err => console.log(err))
 
     },
-    manageTabs(){
-        wx.navigateTo({ url:'/pages/news/manage' })
+    manageTabs() {
+        wx.navigateTo({
+            url: '/pages/news/manage'
+        })
     }
 })

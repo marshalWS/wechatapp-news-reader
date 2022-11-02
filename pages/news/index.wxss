@@ -1,53 +1,75 @@
 /**index.wxss**/
-.swiper__container{
+.swiper__container {
     height: 420rpx;
 }
-.swiper__desc{
+
+.swiper__desc {
     position: absolute;
-    width:100%;
+    width: 100%;
     bottom: 0;
     padding: 10rpx;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     font-size: 28rpx;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.swiper__item{
+.swiper__item {
     display: block;
     width: 750rpx;
     height: 420rpx;
 }
 
-.swiper__id{
+.swiper__id {
     float: right;
     padding-right: 20rpx;
     font-weight: 700;
 }
 
 /* header 部分导航 */
-.header{
+.header {
     width: 100%;
     background-color: #fff;
-    font-size: 30rpx;
+    font-size: 35rpx;
     display: flex;
     align-items: center;
-    height: 64rpx;
-    position: relative;
+    height: 70rpx;
+    position: fixed;
+    z-index: 1;
 }
-.sv__container{
-    width: 680rpx;
+
+.header_scroll {
+    width: 100%;
+    background-color: #fff;
+    font-size: 35rpx;
+    display: flex;
+    align-items: center;
+    height: 70rpx;
+    position: fixed;
+    z-index: 1;
+}
+
+.sv__container {
+    width: 640rpx;
     height: 64rpx;
     white-space: nowrap;
 }
-.sv__item{
+
+.sv__item {
     padding: 14rpx;
     display: inline-block;
 }
-.sv-manager{
-    padding-left:20rpx;
+
+.sv-manager {
+    padding-left: 30rpx;
     width: 36rpx;
     height: 36rpx;
-    vertical-align: center;
+    vertical-align: right;
+}
+
+.blank {
+    color: white;
+    font-size: 20rpx;
+    margin-bottom: 40rpx;
 }
