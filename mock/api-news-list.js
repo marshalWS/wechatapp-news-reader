@@ -25,7 +25,7 @@ var newsList = [{
         "commont": 19,
         "parise": 16893,
         "style": 3,
-        "location":"31.968730,118.798171,",
+        "location":"31.968730,118.798171",
         "city":["南京","江宁区"],
         "images": [
             "https://p3-sign.toutiaoimg.com/tos-cn-i-qvj2lq49k0/1e6ad878411449a4baf3a468c526a9e9~noop.image?_iz=58558&from=article.pc_detail&x-expires=1667921628&x-signature=1IqO3TO91RNES12HsWG2p3QT9Bk%3D",

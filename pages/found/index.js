@@ -37,8 +37,6 @@ Page({
         // currCity:"南京",   //default 北京
         newsCache: {},
         news: {},
-
-
         homeAdvertises: [{
                 'imgSrc': '../../res/images/ic_home_advertise.png',
                 'webUrl': ''
@@ -53,19 +51,14 @@ Page({
             }
         ],
 
-        location: '南京',
-        startDate: '',
-        currentDate: '',
-        endOfStartDate: '',
-        endDate: '',
-        endOfEndDate: '',
-        startDay: '',
-        startMonth: '',
-        startWeek: '',
-        endDay: '',
-        endMonth: '',
-        endWeek: '',
-        dayCount: 1,
+        location: '南京',        
+
+        // added
+        displayArticle: true,
+        markers: [],
+        // 
+        city_longitude:"",
+        city_latitude:""
     },
 
     /**
@@ -74,7 +67,7 @@ Page({
     // 根据城市名称获取内容
     loadNewsByCity: function (newVal) {
         console.log("------- loadNewsByCity 1--1 val:", newVal)
-        
+
         String.prototype.encode = function () {
             var bytes = [];
             for (var i = 0; i < this.length; i++) {
@@ -109,9 +102,9 @@ Page({
         }
         news.isLoading = true
         this.setData({
-            news:news
+            news: news
         })
-        
+
         try {
             // const newslist = await getNewsByCategory(news.categoryId, news.page)
             let newslist = getLocalNewsList.NewsList
@@ -141,7 +134,7 @@ Page({
             news.isLoading = false
         }
         this.setData({
-            news:news
+            news: news
         })
     },
     onLoad: function (options) {
@@ -168,7 +161,7 @@ Page({
                 if (newVal.length != 0 && (newVal.length - 1) == newVal.indexOf("市")) {
                     newVal = newVal.substring(0, newVal.length - 1)
                     newVal = this.removeCityShi(newVal)
-                    
+
                     that.setData({
                         location: newVal
                     })
@@ -446,6 +439,51 @@ Page({
             val = val.substring(0, val.length - 1)
         }
         return val
+    },
+    selectDisplayType: function () {
+        console.log("++++++ displayArticle", this.data.displayArticle)
+        this.setData({
+            displayArticle: !this.data.displayArticle
+        })
+        this.loadMapNews()
+    },
+    loadMapNews: function () {
+        // 地图展示
+        if (!this.data.displayArticle) {
+            console.log("++++++ show map...")
+            // to do add marks
+            var markers = []
+            var i = 0
+            for (i = 0; i < this.data.news.newsList.length; i++) {
+                var loc = this.data.news.newsList[i].location.split(",")
+                if (loc.length != 2) {
+                    continue
+                }
+                var marker = {
+                    id: 10,
+                    latitude: loc[0],
+                    longitude: loc[1],
+                    width: 17,
+                    height: 24,
+                    callout: {
+                        content: this.data.news.newsList[i].abstract,
+                        fontSize: 13,
+                        padding: 2,
+                        display: "BYCLICK"
+                    }
+                }
+                markers.push(marker)
+            }
+            if (markers.length != 0) {
+                this.setData({
+                    markers: markers
+                })
+            }
+
+        }
+    },
+    bindregionchange: function () {
+
     }
 
 })

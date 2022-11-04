@@ -51,8 +51,8 @@ Page {
     flex-direction: column;
     box-sizing: border-box;
     height: max-content;
-    width: 100%;
-    box-shadow: 0rpx 8rpx 20rpx #bbb;
+    width: 60%;
+    /* box-shadow: 0rpx 8rpx 20rpx #bbb; */
     border-radius: 14rpx;
     background: white;
 }
@@ -158,4 +158,23 @@ Page {
 .dayCount {
     font-size: 32rpx;
     margin: 0 10rpx;
+}
+
+.displayType{
+    width: 40%;
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: center;
+    float: right;     
+}
+.displayType .active{
+ color: red;
+}
+.displayType .inactive{
+  color: black;
+}
+
+.displayType button{
+    margin: 0;
+    font-size: 25rpx;
 }

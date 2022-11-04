@@ -1,5 +1,5 @@
 <import src="../common/template/article.wxml" />
-<view class='filterContent'>
+<view class='filterContent' style="flex-direction: row;">
     <view class='filterView'>
         <view class='location'>
             <image src='../../res/images/ic_city_location.png' mode='aspectFit' class='icon' bindtap='getLocalLocation' />
@@ -8,12 +8,27 @@
             <image src='../../res/images/ic_right_arrow.png' mode='widthFix' class='icon' bindtap='selectCity' />
         </view>
     </view>
-</view>
+    <view class="displayType">
+        <button wx:if="{{displayArticle}}" bindtap="selectDisplayType" class="active">文章</button>
+        <button wx:else bindtap="selectDisplayType" class="inactive">文章</button>
+        <button wx:if="{{displayArticle}}" bindtap="selectDisplayType" class="inactive">地图</button>
+        <button wx:else bindtap="selectDisplayType" class="active">地图</button>
 
+    </view>
+</view>
+<view style="color: white; margin-bottom: 42rpx;">blank</view>
 <!-- 首页新闻列表  -->
-<view style="color: white;font-size: 20rpx; margin-bottom: 50rpx;"> 64664</view>
-<view class="articles" wx:if="news">
-    <block wx:for="{{ news.newsList }}">
-        <template is="{{ 'newsStyle' + item.style }}" data="{{ ...item }}" />
-    </block>
+<!-- blank -->
+<view style="color: white;font-size: 20rpx; margin-bottom: 50rpx;">blank</view>
+<view wx:if="{{displayArticle}}">
+    <view class="articles" wx:if="news">
+        <block wx:for="{{ news.newsList }}">
+            <template is="{{ 'newsStyle' + item.style }}" data="{{ ...item }}" />
+        </block>
+    </view>
+</view>
+<view wx:else>
+    <view style="margin-left:60rpx" ><map id="myMap" longitude="118.795009" latitude="31.944315" scale="10" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: 500px;"></map>
+    </view>
+
 </view>
