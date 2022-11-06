@@ -11,9 +11,7 @@ Page({
     },
 
     onCitySelect: function (e) {
-
-        console.log('城市选择', e);
-        var pages = getCurrentPages();
+    var pages = getCurrentPages();
         
         if (pages.length >= 2) {
             var prePage = pages[pages.length - 2];

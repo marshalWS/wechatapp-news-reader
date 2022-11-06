@@ -17,9 +17,8 @@ Page({
         String.prototype.decode = function () {
             return String.fromCharCode.apply(null,this.trim().split(","));
         }     
-        console.log("+++++++  before:", options.link)
-        var link = options.link.decode()
-        console.log("+++++++ newswebview 2 after",link)
+        
+        var link = options.link.decode()        
         this.setData({
             link:link
         })

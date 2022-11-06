@@ -20,10 +20,9 @@ export async function getCategroyList() {
         prev[k] = true
         return prev
     }, {}) : null
-    console.log("++++++ categorys---", categorys)
+    
     return categorys.map(category => {
         // 未设置过关注
-        
         category.selected = maped ? (!!maped[category.id]) : true
         return category
     })

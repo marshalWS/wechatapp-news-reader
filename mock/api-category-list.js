@@ -49,8 +49,8 @@ categorys.push({
     "desc": "传销"
 }, {
     "id": 13,
-    "name": "其他门店",
-    "desc": "其他门店"
+    "name": "门店",
+    "desc": "门店"
 }, {
     "id": 14,
     "name": "老年人",

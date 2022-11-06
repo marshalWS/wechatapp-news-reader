@@ -21,26 +21,22 @@ Page({
         }]
     },
     
+    // 跳转到详情页
     toMore:function(e){
-        console.log("--------------> detail",e.currentTarget.dataset.link)
         wx.navigateTo({
           url: '../../pages/newswebview/newswebview?link='+e.currentTarget.dataset.link
         })
     },
     onLoad: function (options) {
-        // console.log("---detail.link>>>:", options)
-        // this.refreshArticle(1)
         const articles = {
             "title": options.title,
             "abstract": options.abstract,
             "link": options.link
         }
-        console.log("++++++ link detail.js", options.link)
-
+        
         this.setData({
             article:articles
-        })
-        // this.refreshRelationArticles()
+        })        
     },
     tiaozhuan: function () {
         this.setData({
@@ -58,5 +54,9 @@ Page({
         this.setData({
             relations
         })
+    },
+    //地图移动时, 触发
+    regionchange: function(){
+
     }
 })

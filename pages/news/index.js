@@ -91,7 +91,6 @@ Page({
                 })
             }
 
-            // console.log("------- news>,currentTab", newslist, currentTab) 
             if (newslist.length && news.page == 1) {
                 news.page += 1
                 for (var i = 0; i < newslist.length; i++) {
@@ -123,7 +122,6 @@ Page({
     },
     // 切换当前选择的分类
     changeCategory(event) {
-        console.log("+++++++ event", event)
         const {
             newsCache
         } = this.data

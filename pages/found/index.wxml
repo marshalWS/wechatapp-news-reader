@@ -28,7 +28,8 @@
     </view>
 </view>
 <view wx:else>
-    <view style="margin-left:60rpx" ><map id="myMap" longitude="118.795009" latitude="31.944315" scale="10" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: 500px;"></map>
+    <!-- <view style="margin-left:60rpx" ><map id="myMap" longitude="106.55" latitude="29.57" scale="15" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: 500px;"></map> -->
+    <view style="margin-left:60rpx"><map id="myMap" longitude="{{city_longitude}}" latitude="{{city_latitude}}" scale="10" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: 500px;"></map>
     </view>
 
 </view>

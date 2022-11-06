@@ -1,5 +1,6 @@
 // pages/homePage/homePage.js
 var getLocalNewsList = require("../../mock/api-news-list")
+var CITY_LONG_LAT = require("../../common/local_city_long_lat")
 var app = getApp();
 var locationUrl = 'http://apis.map.qq.com/ws/geocoder/v1/';
 const tencentMapKey = 'ZNDBZ-W3YR6-6KXSB-MLKXV-6HFXK-UMFOT';
@@ -66,8 +67,6 @@ Page({
      */
     // 根据城市名称获取内容
     loadNewsByCity: function (newVal) {
-        console.log("------- loadNewsByCity 1--1 val:", newVal)
-
         String.prototype.encode = function () {
             var bytes = [];
             for (var i = 0; i < this.length; i++) {
@@ -75,7 +74,6 @@ Page({
             }
             return bytes.join(',');
         }
-
 
         var location = this.data.location
         var newsCache = this.data.newsCache
@@ -96,7 +94,6 @@ Page({
             }
         }
         const news = newsCache[location]
-        console.log("------- loadNewsByCity 2", location)
         if (news.isLoading) {
             return
         }
@@ -117,7 +114,6 @@ Page({
                 })
             }
 
-            // console.log("------- news>,currentTab", newslist, currentTab) 
             if (newslist.length && news.page == 1) {
                 news.page += 1
                 for (var i = 0; i < newslist.length; i++) {
@@ -127,7 +123,6 @@ Page({
                     }
                 }
                 news.newsList.push(...newslist)
-                console.log("++++> news.newsList", news.newsList)
             }
             news.isLoading = false
         } catch (err) {
@@ -154,10 +149,9 @@ Page({
         }
         this.loadNewsByCity("")
         var that = this
-        //监听字段
+        //监听字段变化
         app.watch(this, {
             location: function (newVal) {
-                console.log("--------  监听 字段  --", newVal)
                 if (newVal.length != 0 && (newVal.length - 1) == newVal.indexOf("市")) {
                     newVal = newVal.substring(0, newVal.length - 1)
                     newVal = this.removeCityShi(newVal)
@@ -166,7 +160,23 @@ Page({
                         location: newVal
                     })
                 }
+                
+                var long_lat = CITY_LONG_LAT.CITY_LONG_LAT[newVal]
+                if (typeof long_lat == "string"){                    
+                    var ret = long_lat.split(",")
+                    if (ret.length == 2){
+                        that.setData({
+                            city_longitude : ret[0],
+                            city_latitude : ret[1]
+                        })
+                    }
+                }
+               
+
                 that.loadNewsByCity(newVal)
+                if(!that.data.displayArticle){
+                    that.loadMapNews()
+                }
             }
         })
     },
@@ -217,19 +227,7 @@ Page({
             url: '../select_city/select_city'
         })
     },
-
-    // searchEvent: function () {
-    //     if (this.data.location == '定位中...') {
-    //         wx.showToast({
-    //             title: '定位中，请稍后',
-    //             icon: 'none'
-    //         })
-    //         console.log("+++  searchEvent +++ 2")
-    //     } else {
-
-    //     }
-    // },
-
+ 
     filterTap: function () {
         if (this.data.location == '定位中...') {
             wx.showToast({
@@ -243,21 +241,7 @@ Page({
         }
     },
 
-    // nearbyTap: function () {
-    //     if (location == '定位中...') {
-    //         wx.showToast({
-    //             title: '定位中，请稍后',
-    //             icon: 'none'
-    //         })
-    //     } else {
-    //         wx.navigateTo({
-    //             url: '../../pages/searchHotel/searchHotel?location=' + this.data.location,
-    //         })
-    //     }
-    // },
-
     startDateChange: function (e) {
-        console.log(e);
         startDate = e.detail.value;
         var startArray = startDate.split('-');
         startYear = parseInt(startArray[0]);
@@ -441,7 +425,6 @@ Page({
         return val
     },
     selectDisplayType: function () {
-        console.log("++++++ displayArticle", this.data.displayArticle)
         this.setData({
             displayArticle: !this.data.displayArticle
         })
@@ -450,8 +433,6 @@ Page({
     loadMapNews: function () {
         // 地图展示
         if (!this.data.displayArticle) {
-            console.log("++++++ show map...")
-            // to do add marks
             var markers = []
             var i = 0
             for (i = 0; i < this.data.news.newsList.length; i++) {
@@ -460,16 +441,17 @@ Page({
                     continue
                 }
                 var marker = {
-                    id: 10,
+                    id: i,
                     latitude: loc[0],
                     longitude: loc[1],
-                    width: 17,
-                    height: 24,
+                    width: 25,
+                    height: 32,
                     callout: {
                         content: this.data.news.newsList[i].abstract,
                         fontSize: 13,
                         padding: 2,
-                        display: "BYCLICK"
+                        display: "BYCLICK",
+                        borderRadius:5
                     }
                 }
                 markers.push(marker)
@@ -483,6 +465,14 @@ Page({
         }
     },
     bindregionchange: function () {
+
+    },
+    // 地图上marker点击触发
+    markertap:function(){
+        
+    },
+    //地图移动时, 触发
+    regionchange: function(){
 
     }
 
