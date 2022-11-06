@@ -73,7 +73,9 @@ Page {
     height: 24rpx;
 }
 
-.location .caption, .location .city, .location .filter .text {
+.location .caption,
+.location .city,
+.location .filter .text {
     font-size: 32rpx;
     margin-left: 14rpx;
 }
@@ -150,7 +152,8 @@ Page {
     margin-left: 6rpx;
 }
 
-.dateItem .date .monthWeek .week, .dateItem .date .monthWeek .month {
+.dateItem .date .monthWeek .week,
+.dateItem .date .monthWeek .month {
     flex: 1;
     font-size: 22rpx;
 }
@@ -160,21 +163,23 @@ Page {
     margin: 0 10rpx;
 }
 
-.displayType{
+.displayType {
     width: 40%;
     display: flex;
     /* flex-direction: row; */
     justify-content: center;
-    float: right;     
-}
-.displayType .active{
- color: red;
-}
-.displayType .inactive{
-  color: black;
+    float: right;
 }
 
-.displayType button{
+.displayType .active {
+    color: red;
+}
+
+.displayType .inactive {
+    color: black;
+}
+
+.displayType button {
     margin: 0;
     font-size: 25rpx;
 }

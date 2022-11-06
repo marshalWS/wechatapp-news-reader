@@ -8,7 +8,7 @@
         "pages/found/index",
         "pages/user/index",
         "pages/newswebview/newswebview",
-        "pages/select_city/select_city",        
+        "pages/select_city/select_city",
         "pages/mark/index"
     ],
     "permission": {

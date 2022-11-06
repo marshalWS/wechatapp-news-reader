@@ -28,7 +28,7 @@ Page({
     onLoad() {
         // 打开调试
         wx.setEnableDebug({
-            enableDebug: true
+            enableDebug: false
         })
         this.doLoadHomeBanners()
     },

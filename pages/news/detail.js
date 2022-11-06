@@ -20,11 +20,11 @@ Page({
             height: 49
         }]
     },
-    
+
     // 跳转到详情页
-    toMore:function(e){
+    toMore: function (e) {
         wx.navigateTo({
-          url: '../../pages/newswebview/newswebview?link='+e.currentTarget.dataset.link
+            url: '../../pages/newswebview/newswebview?link=' + e.currentTarget.dataset.link
         })
     },
     onLoad: function (options) {
@@ -33,10 +33,10 @@ Page({
             "abstract": options.abstract,
             "link": options.link
         }
-        
+
         this.setData({
-            article:articles
-        })        
+            article: articles
+        })
     },
     tiaozhuan: function () {
         this.setData({
@@ -56,7 +56,7 @@ Page({
         })
     },
     //地图移动时, 触发
-    regionchange: function(){
+    regionchange: function () {
 
     }
 })

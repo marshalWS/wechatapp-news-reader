@@ -11,15 +11,15 @@ Page({
     },
 
     onCitySelect: function (e) {
-    var pages = getCurrentPages();
-        
+        var pages = getCurrentPages();
+
         if (pages.length >= 2) {
             var prePage = pages[pages.length - 2];
             prePage.setData({
                 location: e.detail.city
             });
         };
- 
+
         wx.navigateBack();
     },
 
@@ -57,7 +57,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        
+
     },
 
     /**

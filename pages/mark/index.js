@@ -1,27 +1,18 @@
-// pages/news/newswebview/newswebview.js
-
+// pages/mark/index.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        link: ""
+
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        //JS字符串解密
-        String.prototype.decode = function () {
-            return String.fromCharCode.apply(null, this.trim().split(","));
-        }
 
-        var link = options.link.decode()
-        this.setData({
-            link: link
-        })
     },
 
     /**

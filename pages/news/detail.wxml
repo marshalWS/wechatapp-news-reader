@@ -28,7 +28,7 @@
 
         <!-- <navigator open-tab="switchTab" open-type="navigate" url="../newswebview/newswebview?url='{{article.link}}'"> -->
         <view class="abstract" bindtap="toMore" data-link="{{article.link}}">
-            <text >{{article.abstract }}</text>
+            <text>{{article.abstract }}</text>
             <text class="more"> 全文...</text>
         </view>
         <!-- <web-view src="{{article.link}}">{{article.abstract }}

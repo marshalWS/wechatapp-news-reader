@@ -3,4 +3,4 @@
 
 
 <!-- <web-view src="{{url}}"></web-view> -->
-<image  style="width: 100%;" mode="widthFix" src="{{link}}"></image>
+<image style="width: 100%;" mode="widthFix" src="{{link}}"></image>

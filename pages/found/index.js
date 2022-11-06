@@ -52,14 +52,14 @@ Page({
             }
         ],
 
-        location: '南京',        
+        location: '南京',
 
         // added
         displayArticle: true,
         markers: [],
         // 
-        city_longitude:"",
-        city_latitude:""
+        city_longitude: "",
+        city_latitude: ""
     },
 
     /**
@@ -160,21 +160,21 @@ Page({
                         location: newVal
                     })
                 }
-                
+
                 var long_lat = CITY_LONG_LAT.CITY_LONG_LAT[newVal]
-                if (typeof long_lat == "string"){                    
+                if (typeof long_lat == "string") {
                     var ret = long_lat.split(",")
-                    if (ret.length == 2){
+                    if (ret.length == 2) {
                         that.setData({
-                            city_longitude : ret[0],
-                            city_latitude : ret[1]
+                            city_longitude: ret[0],
+                            city_latitude: ret[1]
                         })
                     }
                 }
-               
+
 
                 that.loadNewsByCity(newVal)
-                if(!that.data.displayArticle){
+                if (!that.data.displayArticle) {
                     that.loadMapNews()
                 }
             }
@@ -227,7 +227,7 @@ Page({
             url: '../select_city/select_city'
         })
     },
- 
+
     filterTap: function () {
         if (this.data.location == '定位中...') {
             wx.showToast({
@@ -451,7 +451,7 @@ Page({
                         fontSize: 13,
                         padding: 2,
                         display: "BYCLICK",
-                        borderRadius:5
+                        borderRadius: 5
                     }
                 }
                 markers.push(marker)
@@ -468,11 +468,11 @@ Page({
 
     },
     // 地图上marker点击触发
-    markertap:function(){
-        
+    markertap: function () {
+
     },
     //地图移动时, 触发
-    regionchange: function(){
+    regionchange: function () {
 
     }
 
